@@ -1,0 +1,938 @@
+{
+  "test_type": "PubMedQA with Context in Graph",
+  "timestamp": "20251216_203116",
+  "config": {
+    "pubmed_chunks": 15000,
+    "pubmedqa_questions": 100,
+    "total_passages": 15100
+  },
+  "index_time_seconds": 1825.56831407547,
+  "test_time_seconds": 0.01868462562561035,
+  "results": {
+    "scheme": "LinearRAG (含原始摘要)",
+    "accuracy": 0.0,
+    "correct": 0,
+    "total": 100,
+    "found_original_count": 0,
+    "results": [
+      {
+        "pmid": "12377809",
+        "question": "Is anorectal endosonography valuable in dyschesia?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "26163474",
+        "question": "Is there a connection between sublingual varices and hypertension?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "19100463",
+        "question": "Is the affinity column-mediated immunoassay method suitable as an alternative to the microparticle enzyme immunoassay method as a blood tacrolimus assay?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "18537964",
+        "question": "Does a physician's specialty influence the recording of medication history in patients' case notes?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "12913878",
+        "question": "Locoregional opening of the rodent blood-brain barrier for paclitaxel using Nd:YAG laser-induced thermo therapy: a new concept of adjuvant glioma therapy?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "12765819",
+        "question": "Spinal subdural hematoma: a sequela of a ruptured intracranial aneurysm?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "25475395",
+        "question": "Is there a correlation between androgens and sexual desire in women?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "19130332",
+        "question": "Is the zeolite hemostatic agent beneficial in reducing blood loss during arterial injury?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "9427037",
+        "question": "Are endothelial cell patterns of astrocytomas indicative of grade?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "24481006",
+        "question": "Should cavitation in proximal surfaces be reported in cone beam computed tomography examination?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "8165771",
+        "question": "Ultrasound in squamous cell carcinoma of the penis; a useful addition to clinical staging?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "22680064",
+        "question": "Can third trimester ultrasound predict the presentation of the first twin at delivery?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "22540518",
+        "question": "Is micro-computed tomography reliable to determine the microstructure of the maxillary alveolar bone?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "20629769",
+        "question": "Is primary angioplasty an acceptable alternative to thrombolysis?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "21726930",
+        "question": "Is endometrial polyp formation associated with increased expression of vascular endothelial growth factor and transforming growth factor-beta1?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "21481154",
+        "question": "Improvements in survival of gynaecological cancer in the Anglia region of England: are these an effect of centralisation of care and use of multidisciplinary management?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "22902073",
+        "question": "Estimated fetal weight by ultrasound: a modifiable risk factor for cesarean delivery?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "26370095",
+        "question": "Are financial incentives cost-effective to support smoking cessation during pregnancy?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "18041059",
+        "question": "Do adjuvant aromatase inhibitors increase the cardiovascular risk in postmenopausal women with early breast cancer?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "15041506",
+        "question": "Is fear of anaphylactic shock discouraging surgeons from more widely adopting percutaneous and laparoscopic techniques in the treatment of liver hydatid cyst?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "11146778",
+        "question": "Risk stratification in emergency surgical patients: is the APACHE II score a reliable marker of physiological impairment?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "27281318",
+        "question": "Can Flexible Instruments Create Adequate Femoral Tunnel Lengths at 90° of Knee Flexion in Anterior Cruciate Ligament Reconstruction?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "21645374",
+        "question": "Do mitochondria play a role in remodelling lace plant leaves during programmed cell death?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "9465206",
+        "question": "\"Occult\" posttraumatic lesions of the knee: can magnetic resonance substitute for diagnostic arthroscopy?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "25887165",
+        "question": "Does Sensation Return to the Nasal Tip After Microfat Grafting?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "15995461",
+        "question": "Do some U.S. states have higher/lower injury mortality rates than others?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "21850494",
+        "question": "Hepatorenal syndrome: are we missing some prognostic factors?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "19106867",
+        "question": "The Main Gate Syndrome: a new format in mass-casualty victim \"surge\" management?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "21342862",
+        "question": "Is EQ-5D a valid quality of life instrument in patients with acute coronary syndrome?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "24352924",
+        "question": "Is portable ultrasonography accurate in the evaluation of Schanz pin placement during extremity fracture fixation in austere environments?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "16147837",
+        "question": "Is grandmultiparity an independent risk factor for adverse perinatal outcomes?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "26879871",
+        "question": "Does depression diagnosis and antidepressant prescribing vary by location?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "15918864",
+        "question": "Learning needs of postpartum women: does socioeconomic status matter?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "22075911",
+        "question": "Is there a differential in the dental health of new recruits to the British Armed Forces?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "11035130",
+        "question": "Do patients with rheumatoid arthritis established on methotrexate and folic acid 5 mg daily need to continue folic acid supplements long term?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "21228436",
+        "question": "Can teaching medical students to investigate medication errors change their attitudes towards patient safety?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "11833948",
+        "question": "Does a delay in transfer to a rehabilitation unit for older people affect outcome after fracture of the proximal femur?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "17682349",
+        "question": "Are there gender differences in the reasons why African Americans delay in seeking medical help for symptoms of an acute myocardial infarction?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "17355582",
+        "question": "Does ambulatory process of care predict health-related quality of life outcomes for patients with chronic disease?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "15597845",
+        "question": "Is the combination with 2-methoxyestradiol able to reduce the dosages of chemotherapeutices in the treatment of human ovarian cancer?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "10158597",
+        "question": "Does a dedicated discharge coordinator improve the quality of hospital discharge?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "27549226",
+        "question": "Impact of MPH programs: contributing to health system strengthening in low- and middle-income countries?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "26348845",
+        "question": "Pap smears with glandular cell abnormalities: Are they detected by rapid prescreening?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "25588461",
+        "question": "Can transcranial direct current stimulation be useful in differentiating unresponsive wakefulness syndrome from minimally conscious state patients?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "23359100",
+        "question": "Is etoricoxib effective in preventing heterotopic ossification after primary total hip arthroplasty?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "26548832",
+        "question": "Assessing Patient Reported Outcomes Measures via Phone Interviews Versus Patient Self-Survey in the Clinic: Are We Measuring the Same Thing?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "25756710",
+        "question": "Can emergency physicians accurately and reliably assess acute vertigo in the emergency department?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "20297950",
+        "question": "Proof of concept study: does fenofibrate have a role in sleep apnoea syndrome?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "24622801",
+        "question": "Does implant coating with antibacterial-loaded hydrogel reduce bacterial colonization and biofilm formation in vitro?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "9722752",
+        "question": "Does bone anchor fixation improve the outcome of percutaneous bladder neck suspension in female stress urinary incontinence?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "20577124",
+        "question": "Is leptin involved in phagocytic NADPH oxidase overactivity in obesity?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "19027440",
+        "question": "Can we predict which head and neck cancer survivors develop fears of recurrence?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "18239988",
+        "question": "Differentiation of nonalcoholic from alcoholic steatohepatitis: are routine laboratory markers useful?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "27858166",
+        "question": "Traumatic aortic injury: does the anatomy of the aortic arch influence aortic trauma severity?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "27050489",
+        "question": "The Prevalence of Incidentally Detected Idiopathic Misty Mesentery on Multidetector Computed Tomography: Can Obesity Be the Triggering Cause?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "16266387",
+        "question": "Fast foods - are they a risk factor for asthma?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "27287237",
+        "question": "Assessment of appropriate antimicrobial prescribing: do experts agree?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "11079675",
+        "question": "Pulmonary valve replacement in adults late after repair of tetralogy of fallot: are we operating too late?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "10331115",
+        "question": "Is amoxapine an atypical antipsychotic?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "18594195",
+        "question": "Do older patients who refuse to participate in a self-management intervention in the Netherlands differ from older patients who agree to participate?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "22497340",
+        "question": "Is horizontal semicircular canal ocular reflex influenced by otolith organs input?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "16769333",
+        "question": "Preoperative tracheobronchoscopy in newborns with esophageal atresia: does it matter?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "20571467",
+        "question": "Is it appropriate to implant kidneys from elderly donors in young recipients?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "12094116",
+        "question": "Is muscle power related to running speed with changes of direction?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "17276182",
+        "question": "Stretch-sensitive KCNQ1 mutation A link between genetic and environmental factors in the pathogenesis of atrial fibrillation?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "26419377",
+        "question": "Are pelvic anatomical structures in danger during arthroscopic acetabular labral repair?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "23810330",
+        "question": "Is intraoperative neuromonitoring associated with better functional outcome in patients undergoing open TME?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "15151701",
+        "question": "Profiling quality of care: Is there a role for peer review?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "23736032",
+        "question": "Multidisciplinary decisions in breast cancer: does the patient receive what the team has recommended?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "28143468",
+        "question": "Are performance measurement systems useful?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "23495128",
+        "question": "The colour of pain: can patients use colour to describe osteoarthritis pain?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "12121321",
+        "question": "Do mossy fibers release GABA?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "18570208",
+        "question": "Is severe macrosomia manifested at 11-14 weeks of gestation?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "28707539",
+        "question": "Visceral adipose tissue area measurement at a single level: can it represent visceral adipose tissue volume?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "22117569",
+        "question": "Is an advance care planning model feasible in community palliative care?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "18783922",
+        "question": "Do cytokines have any role in epilepsy?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "15528969",
+        "question": "Is expert breast pathology assessment necessary for the management of ductal carcinoma in situ ?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "19482903",
+        "question": "Treadmill testing of children who have spina bifida and are ambulatory: does peak oxygen uptake reflect maximum oxygen uptake?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "11977907",
+        "question": "Subclavian steal syndrome: can the blood pressure difference between arms predict the severity of steal?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "17306983",
+        "question": "Is size-reducing ascending aortoplasty with external reinforcement an option in modern aortic surgery?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "24318956",
+        "question": "Is digoxin use for cardiovascular disease associated with risk of prostate cancer?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "22266735",
+        "question": "Screening for gestational diabetes mellitus: are the criteria proposed by the international association of the Diabetes and Pregnancy Study Groups cost-effective?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "22453060",
+        "question": "Does a 4 diagram manual enable laypersons to operate the Laryngeal Mask Supreme®?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "10401824",
+        "question": "Is laparoscopic reoperation for failed antireflux surgery feasible?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "15208005",
+        "question": "The Omega-3 Index: a new risk factor for death from coronary heart disease?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "16713745",
+        "question": "Do cytokine concentrations in pancreatic juice predict the presence of pancreatic diseases?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "21864397",
+        "question": "Factors determining the survival of nasopharyngeal carcinoma with lung metastasis alone: does combined modality treatment benefit?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "25810292",
+        "question": "Is minimally invasive mitral valve repair with artificial chords reproducible and applicable in routine surgery?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "11943048",
+        "question": "Does receipt of hospice care in nursing homes improve the management of pain at the end of life?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "23347337",
+        "question": "Is intensive chemotherapy safe for rural cancer patients?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "23992109",
+        "question": "Is the urinary biomarkers assessment a non-invasive approach to tubular lesions of the solitary kidney?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "10922093",
+        "question": "Does open access endoscopy close the door to an adequately informed patient?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "26601554",
+        "question": "Do viral infections have a role in benign paroxysmal positional vertigo?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "15489384",
+        "question": "Does reducing spasticity translate into functional benefit?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "27818079",
+        "question": "Is the Retromandibular Transparotid Approach a Reliable Option for the Surgical Treatment of Condylar Fractures?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "24340838",
+        "question": "Do ventricular arrhythmias in athletes subside over time?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "16971978",
+        "question": "Are complex coronary lesions more frequent in patients with diabetes mellitus?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "21689015",
+        "question": "Can dogs prime autistic children for therapy?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "12846929",
+        "question": "Quality of life in lung cancer patients: does socioeconomic status matter?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      },
+      {
+        "pmid": "22694248",
+        "question": "Is there a model to teach and practice retroperitoneoscopic nephrectomy?",
+        "gold_answer": "yes",
+        "pred_answer": "maybe",
+        "correct": false,
+        "found_original_abstract": false,
+        "error": "string indices must be integers"
+      }
+    ]
+  },
+  "comparison": [
+    [
+      "LinearRAG + 原始摘要在图中",
+      0.0
+    ],
+    [
+      "方案 B: 摘要+医学知识提示 (之前)",
+      82.0
+    ],
+    [
+      "方案 A: 原始摘要 (之前)",
+      79.0
+    ],
+    [
+      "LinearRAG 原始 (之前)",
+      15.0
+    ]
+  ]
+}

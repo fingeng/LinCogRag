@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (large files) - 排除整个目录
+import/
+dataset/
+artifacts/
+MIRAGE/
+MedRAG/
+*.parquet
+*.pkl
+*.pickle
+*.jsonl
+*.json.gz
+
+# Models (large files) - 排除整个目录
+model/
+models/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+structure_after_cleanup.txt
+linearrag/
+release/large_files/
+
+# Temporary files
+*.tmp
+*.cache
+.config.py.swp

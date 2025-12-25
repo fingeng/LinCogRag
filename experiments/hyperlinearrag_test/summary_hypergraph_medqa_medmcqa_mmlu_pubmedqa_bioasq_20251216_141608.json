@@ -1,0 +1,58 @@
+{
+  "total_questions": 500,
+  "overall_llm_accuracy": 63.6,
+  "overall_contain_accuracy": 15.0,
+  "total_correct": 318,
+  "total_contain_correct": 75,
+  "total_invalid": 0,
+  "valid_answer_rate": 100.0,
+  "questions_wo_entities": 5,
+  "dataset_stats": {
+    "medqa": {
+      "total": 100,
+      "correct": 85,
+      "invalid": 0,
+      "contain_correct": 8,
+      "no_entity": 0
+    },
+    "medmcqa": {
+      "total": 100,
+      "correct": 73,
+      "invalid": 0,
+      "contain_correct": 13,
+      "no_entity": 0
+    },
+    "mmlu": {
+      "total": 100,
+      "correct": 83,
+      "invalid": 0,
+      "contain_correct": 19,
+      "no_entity": 1
+    },
+    "pubmedqa": {
+      "total": 100,
+      "correct": 15,
+      "invalid": 0,
+      "contain_correct": 2,
+      "no_entity": 3
+    },
+    "bioasq": {
+      "total": 100,
+      "correct": 62,
+      "invalid": 0,
+      "contain_correct": 33,
+      "no_entity": 1
+    }
+  },
+  "invalid_samples": [],
+  "index_time_seconds": 4537.315230369568,
+  "qa_time_seconds": 3405.6707713603973,
+  "total_time_seconds": 7942.986001729965,
+  "is_baseline": false,
+  "hypergraph_enabled": true,
+  "hypergraph_stats": {
+    "num_hyperedges": 114851,
+    "num_entities": 131954,
+    "avg_entities_per_hyperedge": 4.502494536399335
+  }
+}

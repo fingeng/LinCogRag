@@ -1,0 +1,29 @@
+{
+  "cells_and_tissues": [
+    "cell", "cells", "nucleus", "nuclei", "cytoplasm", "membrane",
+    "lymphocyte", "monocyte", "neutrophil", "basophil", "eosinophil",
+    "erythrocyte", "leukocyte", "platelet", "thrombocyte",
+    "tissue", "organ", "gland", "vessel", "artery", "vein", "capillary"
+  ],
+  "physiological_processes": [
+    "cardiac cycle", "systole", "diastole", "stroke volume",
+    "heart rate", "blood pressure", "circulation",
+    "translation", "transcription", "replication",
+    "glycolysis", "metabolism", "respiration",
+    "mitosis", "meiosis", "apoptosis"
+  ],
+  "molecules": [
+    "ATP", "ADP", "DNA", "RNA", "mRNA", "tRNA", "rRNA",
+    "protein", "enzyme", "hormone", "antibody", "antigen",
+    "glucose", "glycogen", "lipid", "amino acid", "nucleotide"
+  ],
+  "anatomy": [
+    "bone", "bones", "joint", "muscle", "tendon", "ligament",
+    "hand", "finger", "arm", "leg", "foot",
+    "brain", "heart", "lung", "liver", "kidney"
+  ],
+  "genetics": [
+    "gene", "genes", "chromosome", "allele", "genome",
+    "mutation", "monosomy", "trisomy", "exon", "intron"
+  ]
+}

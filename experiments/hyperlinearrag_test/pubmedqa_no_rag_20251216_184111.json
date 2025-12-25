@@ -1,0 +1,718 @@
+{
+  "test_type": "PubMedQA without RAG (GPT-4o only)",
+  "total_questions": 100,
+  "correct": 35,
+  "accuracy": 35.0,
+  "pred_distribution": {
+    "yes": 35,
+    "maybe": 60,
+    "no": 5
+  },
+  "gold_distribution": {
+    "yes": 100
+  },
+  "elapsed_seconds": 45.233813762664795,
+  "timestamp": "20251216_184111",
+  "results": [
+    {
+      "question": "Is anorectal endosonography valuable in dyschesia?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is there a connection between sublingual varices and hypertension?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Does a physician's specialty influence the recording of medication history in patients' case notes?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is the affinity column-mediated immunoassay method suitable as an alternative to the microparticle enzyme immunoassay method as a blood tacrolimus assay?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Locoregional opening of the rodent blood-brain barrier for paclitaxel using Nd:YAG laser-induced thermo therapy: a new concept of adjuvant glioma therapy?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Spinal subdural hematoma: a sequela of a ruptured intracranial aneurysm?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is there a correlation between androgens and sexual desire in women?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is the zeolite hemostatic agent beneficial in reducing blood loss during arterial injury?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Are endothelial cell patterns of astrocytomas indicative of grade?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Should cavitation in proximal surfaces be reported in cone beam computed tomography examination?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Ultrasound in squamous cell carcinoma of the penis; a useful addition to clinical staging?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Can third trimester ultrasound predict the presentation of the first twin at delivery?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is micro-computed tomography reliable to determine the microstructure of the maxillary alveolar bone?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is primary angioplasty an acceptable alternative to thrombolysis?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is endometrial polyp formation associated with increased expression of vascular endothelial growth factor and transforming growth factor-beta1?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Improvements in survival of gynaecological cancer in the Anglia region of England: are these an effect of centralisation of care and use of multidisciplinary management?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Are financial incentives cost-effective to support smoking cessation during pregnancy?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Estimated fetal weight by ultrasound: a modifiable risk factor for cesarean delivery?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Do adjuvant aromatase inhibitors increase the cardiovascular risk in postmenopausal women with early breast cancer?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is fear of anaphylactic shock discouraging surgeons from more widely adopting percutaneous and laparoscopic techniques in the treatment of liver hydatid cyst?",
+      "gold_answer": "yes",
+      "pred_answer": "no",
+      "raw_response": "No",
+      "correct": false
+    },
+    {
+      "question": "Risk stratification in emergency surgical patients: is the APACHE II score a reliable marker of physiological impairment?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Can Flexible Instruments Create Adequate Femoral Tunnel Lengths at 90° of Knee Flexion in Anterior Cruciate Ligament Reconstruction?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Do mitochondria play a role in remodelling lace plant leaves during programmed cell death?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "\"Occult\" posttraumatic lesions of the knee: can magnetic resonance substitute for diagnostic arthroscopy?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Do some U.S. states have higher/lower injury mortality rates than others?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Does Sensation Return to the Nasal Tip After Microfat Grafting?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Hepatorenal syndrome: are we missing some prognostic factors?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "The Main Gate Syndrome: a new format in mass-casualty victim \"surge\" management?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is EQ-5D a valid quality of life instrument in patients with acute coronary syndrome?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is portable ultrasonography accurate in the evaluation of Schanz pin placement during extremity fracture fixation in austere environments?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Does depression diagnosis and antidepressant prescribing vary by location?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is grandmultiparity an independent risk factor for adverse perinatal outcomes?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Learning needs of postpartum women: does socioeconomic status matter?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is there a differential in the dental health of new recruits to the British Armed Forces?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Do patients with rheumatoid arthritis established on methotrexate and folic acid 5 mg daily need to continue folic acid supplements long term?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Can teaching medical students to investigate medication errors change their attitudes towards patient safety?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Does a delay in transfer to a rehabilitation unit for older people affect outcome after fracture of the proximal femur?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Are there gender differences in the reasons why African Americans delay in seeking medical help for symptoms of an acute myocardial infarction?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Does ambulatory process of care predict health-related quality of life outcomes for patients with chronic disease?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Does a dedicated discharge coordinator improve the quality of hospital discharge?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is the combination with 2-methoxyestradiol able to reduce the dosages of chemotherapeutices in the treatment of human ovarian cancer?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Impact of MPH programs: contributing to health system strengthening in low- and middle-income countries?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Pap smears with glandular cell abnormalities: Are they detected by rapid prescreening?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is etoricoxib effective in preventing heterotopic ossification after primary total hip arthroplasty?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Can transcranial direct current stimulation be useful in differentiating unresponsive wakefulness syndrome from minimally conscious state patients?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Assessing Patient Reported Outcomes Measures via Phone Interviews Versus Patient Self-Survey in the Clinic: Are We Measuring the Same Thing?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Can emergency physicians accurately and reliably assess acute vertigo in the emergency department?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Proof of concept study: does fenofibrate have a role in sleep apnoea syndrome?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Does implant coating with antibacterial-loaded hydrogel reduce bacterial colonization and biofilm formation in vitro?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Does bone anchor fixation improve the outcome of percutaneous bladder neck suspension in female stress urinary incontinence?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is leptin involved in phagocytic NADPH oxidase overactivity in obesity?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Can we predict which head and neck cancer survivors develop fears of recurrence?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Differentiation of nonalcoholic from alcoholic steatohepatitis: are routine laboratory markers useful?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Traumatic aortic injury: does the anatomy of the aortic arch influence aortic trauma severity?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "The Prevalence of Incidentally Detected Idiopathic Misty Mesentery on Multidetector Computed Tomography: Can Obesity Be the Triggering Cause?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Fast foods - are they a risk factor for asthma?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Assessment of appropriate antimicrobial prescribing: do experts agree?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Pulmonary valve replacement in adults late after repair of tetralogy of fallot: are we operating too late?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is amoxapine an atypical antipsychotic?",
+      "gold_answer": "yes",
+      "pred_answer": "no",
+      "raw_response": "No",
+      "correct": false
+    },
+    {
+      "question": "Do older patients who refuse to participate in a self-management intervention in the Netherlands differ from older patients who agree to participate?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is horizontal semicircular canal ocular reflex influenced by otolith organs input?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Preoperative tracheobronchoscopy in newborns with esophageal atresia: does it matter?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is it appropriate to implant kidneys from elderly donors in young recipients?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is muscle power related to running speed with changes of direction?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Stretch-sensitive KCNQ1 mutation A link between genetic and environmental factors in the pathogenesis of atrial fibrillation?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Are pelvic anatomical structures in danger during arthroscopic acetabular labral repair?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Profiling quality of care: Is there a role for peer review?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is intraoperative neuromonitoring associated with better functional outcome in patients undergoing open TME?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Multidisciplinary decisions in breast cancer: does the patient receive what the team has recommended?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Are performance measurement systems useful?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "The colour of pain: can patients use colour to describe osteoarthritis pain?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is severe macrosomia manifested at 11-14 weeks of gestation?",
+      "gold_answer": "yes",
+      "pred_answer": "no",
+      "raw_response": "No",
+      "correct": false
+    },
+    {
+      "question": "Do mossy fibers release GABA?",
+      "gold_answer": "yes",
+      "pred_answer": "no",
+      "raw_response": "No",
+      "correct": false
+    },
+    {
+      "question": "Visceral adipose tissue area measurement at a single level: can it represent visceral adipose tissue volume?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is an advance care planning model feasible in community palliative care?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Do cytokines have any role in epilepsy?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is expert breast pathology assessment necessary for the management of ductal carcinoma in situ ?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Treadmill testing of children who have spina bifida and are ambulatory: does peak oxygen uptake reflect maximum oxygen uptake?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Subclavian steal syndrome: can the blood pressure difference between arms predict the severity of steal?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is size-reducing ascending aortoplasty with external reinforcement an option in modern aortic surgery?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is digoxin use for cardiovascular disease associated with risk of prostate cancer?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Screening for gestational diabetes mellitus: are the criteria proposed by the international association of the Diabetes and Pregnancy Study Groups cost-effective?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Does a 4 diagram manual enable laypersons to operate the Laryngeal Mask Supreme®?",
+      "gold_answer": "yes",
+      "pred_answer": "no",
+      "raw_response": "No",
+      "correct": false
+    },
+    {
+      "question": "Is laparoscopic reoperation for failed antireflux surgery feasible?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "The Omega-3 Index: a new risk factor for death from coronary heart disease?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Do cytokine concentrations in pancreatic juice predict the presence of pancreatic diseases?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Factors determining the survival of nasopharyngeal carcinoma with lung metastasis alone: does combined modality treatment benefit?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is minimally invasive mitral valve repair with artificial chords reproducible and applicable in routine surgery?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Does receipt of hospice care in nursing homes improve the management of pain at the end of life?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is the urinary biomarkers assessment a non-invasive approach to tubular lesions of the solitary kidney?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is intensive chemotherapy safe for rural cancer patients?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Does open access endoscopy close the door to an adequately informed patient?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Do viral infections have a role in benign paroxysmal positional vertigo?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Does reducing spasticity translate into functional benefit?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Is the Retromandibular Transparotid Approach a Reliable Option for the Surgical Treatment of Condylar Fractures?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Are complex coronary lesions more frequent in patients with diabetes mellitus?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Do ventricular arrhythmias in athletes subside over time?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Can dogs prime autistic children for therapy?",
+      "gold_answer": "yes",
+      "pred_answer": "maybe",
+      "raw_response": "Maybe",
+      "correct": false
+    },
+    {
+      "question": "Quality of life in lung cancer patients: does socioeconomic status matter?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    },
+    {
+      "question": "Is there a model to teach and practice retroperitoneoscopic nephrectomy?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "raw_response": "Yes",
+      "correct": true
+    }
+  ]
+}

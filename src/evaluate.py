@@ -51,8 +51,15 @@ class Evaluator:
     def evaluate_sig_sample(self,idx,prediction):
         pre_answer = prediction["pred_answer"]
         gold_ans = prediction["gold_answer"]
-        # llm_acc = 0.0
-        llm_acc = self.calculate_llm_accuracy(pre_answer, gold_ans)
+        dataset = prediction.get("dataset", "unknown")
+        
+        # ✅ 对于多选题和Yes/No/Maybe数据集，直接比较字符串
+        if dataset in ["medqa", "medmcqa", "mmlu", "bioasq", "pubmedqa"]:
+            llm_acc = 1.0 if pre_answer.strip().lower() == gold_ans.strip().lower() else 0.0
+        else:
+            # 其他数据集使用 LLM 判断
+            llm_acc = self.calculate_llm_accuracy(pre_answer, gold_ans)
+        
         contain_acc = self.calculate_contain(pre_answer, gold_ans)
         return idx, llm_acc, contain_acc
 
@@ -60,7 +67,9 @@ class Evaluator:
         llm_scores = [0.0] * len(self.prediction_results)
         contain_scores = [0.0] * len(self.prediction_results)
         
-        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # ✅ 限制评估并发，避免资源耗尽
+        eval_workers = min(2, max_workers)
+        with ThreadPoolExecutor(max_workers=eval_workers) as executor:
             futures = {
                 executor.submit(self.evaluate_sig_sample, idx, pred): idx 
                 for idx, pred in enumerate(self.prediction_results)

@@ -1,8 +1,6 @@
 from hashlib import md5
 from dataclasses import dataclass, field
 from typing import List, Dict
-import httpx
-from openai import OpenAI
 from collections import defaultdict
 import multiprocessing as mp
 import re
@@ -13,25 +11,6 @@ import os
 
 def compute_mdhash_id(content: str, prefix: str = "") -> str:
     return prefix + md5(content.encode()).hexdigest()
-
-class LLM_Model:
-    def __init__(self, llm_model):
-        http_client = httpx.Client(timeout=60.0, trust_env=False)
-        self.openai_client = OpenAI(
-            api_key=os.getenv("OPENAI_API_KEY"),
-            base_url=os.getenv("OPENAI_BASE_URL"),
-            http_client=http_client
-        )
-        self.llm_config = {
-            "model": llm_model,
-            "max_tokens": 2000,
-            "temperature": 0,
-        }
-    def infer(self, messages):
-        response = self.openai_client.chat.completions.create(**self.llm_config,messages=messages)
-        return response.choices[0].message.content
-
-
 
 def normalize_answer(s):
     if s is None:
@@ -75,3 +54,30 @@ def min_max_normalize(x):
         return np.ones_like(x)  # Return an array of ones with the same shape as x
     
     return (x - min_val) / range_val
+
+def extract_answer_letter(text: str) -> str:
+    """
+    从 LLM 输出中提取答案字母
+    
+    Args:
+        text: LLM 的完整输出
+        
+    Returns:
+        提取的答案字母 (A/B/C/D) 或原始文本
+    """
+    import re
+    
+    # 策略1: 查找 "Answer: X" 格式
+    if 'Answer:' in text:
+        answer_part = text.split('Answer:')[-1].strip()
+        match = re.search(r'^([A-D])\b', answer_part)
+        if match:
+            return match.group(1)
+    
+    # 策略2: 查找任何出现的 A/B/C/D（优先最后出现的）
+    matches = re.findall(r'\b([A-D])\b', text)
+    if matches:
+        return matches[-1]  # 返回最后一个匹配
+    
+    # 策略3: 返回原始文本（用于调试）
+    return text

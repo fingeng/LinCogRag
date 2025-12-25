@@ -1,0 +1,99 @@
+# NER Model Configurations for Medical Domain
+
+models:
+  # Current model (baseline)
+  scibert:
+    name: "en_core_sci_scibert"
+    install_cmd: "pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_core_sci_scibert-0.5.1.tar.gz"
+    entity_types:
+      - PERSON
+      - ORG
+      - GPE
+      - DISEASE
+      - CHEMICAL
+      - GENE
+    notes: "通用生物医学模型，但对化学实体识别更好"
+
+  # Recommended: BC5CDR for chemicals and diseases
+  bc5cdr:
+    name: "en_ner_bc5cdr_md"
+    install_cmd: "pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bc5cdr_md-0.5.1.tar.gz"
+    entity_types:
+      - DISEASE
+      - CHEMICAL
+    notes: "专注于疾病和化学物质，F1=0.85+，最适合临床问答"
+    paper: "https://pubmed.ncbi.nlm.nih.gov/30715576/"
+
+  # Alternative: CRAFT corpus (broader coverage)
+  craft:
+    name: "en_ner_craft_md"
+    install_cmd: "pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_craft_md-0.5.1.tar.gz"
+    entity_types:
+      - GENE
+      - PROTEIN
+      - CHEMICAL
+      - CELL
+      - ORGANISM
+      - ANATOMY
+    notes: "更广泛的覆盖，但可能过于细粒度"
+
+  # Alternative: JNLPBA (genes and proteins)
+  jnlpba:
+    name: "en_ner_jnlpba_md"
+    install_cmd: "pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_jnlpba_md-0.5.1.tar.gz"
+    entity_types:
+      - PROTEIN
+      - DNA
+      - RNA
+      - CELL_LINE
+      - CELL_TYPE
+    notes: "专注于分子生物学，不适合临床场景"
+
+  # Hugging Face alternative
+  biobert_ner:
+    name: "dmis-lab/biobert-base-cased-v1.2"
+    type: "huggingface"
+    install_cmd: "pip install transformers"
+    entity_types:
+      - DISEASE
+      - CHEMICAL
+      - GENE
+    notes: "BioBERT微调版本，需要额外集成工作"
+
+  # 🆕 NEW: SciSpacy CRAFT - 最全面的医学 NER
+  craft_comprehensive:
+    name: "en_ner_craft_md"
+    install_cmd: "pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_craft_md-0.5.1.tar.gz"
+    entity_types:
+      - GGP (genes and gene products)  # 基因和基因产物
+      - SO (sequence ontology)          # 序列本体
+      - TAXON (organisms)               # 生物分类
+      - CHEBI (chemical entities)       # 化学实体
+      - GO (gene ontology)              # 基因本体
+      - CL (cell types)                 # 细胞类型
+    coverage: "最全面，涵盖解剖、生理、化学、细胞等"
+    recommended_for: "MMLU 医学问答（覆盖最广）"
+    f1_score: 0.77
+    
+  # 🆕 Alternative: BioNER (Hugging Face)
+  bioner:
+    name: "dmis-lab/biobert-base-cased-v1.1-squad"
+    type: "huggingface"
+    install_cmd: "pip install transformers"
+    entity_types:
+      - ANATOMY (解剖结构)
+      - DISEASE (疾病)
+      - CHEMICAL (化学物质)
+      - GENE (基因)
+      - SYMPTOM (症状)
+    notes: "需要额外集成，但实体类型更丰富"
+
+# 🔧 UPDATE: 新推荐
+recommendation:
+  primary: "craft_comprehensive"
+  fallback: "bc5cdr"
+  reasons:
+    - "CRAFT 包含解剖结构（kidney, nephron, etc.）"
+    - "涵盖细胞类型（glomerulus, capillary）"
+    - "包含生理过程和化学实体"
+    - "F1=0.77，在医学领域表现优秀"
