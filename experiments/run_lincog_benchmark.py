@@ -27,8 +27,8 @@ sys.path.insert(0, PROJECT_ROOT)
 
 # ===================== Configuration =====================
 CHUNKS_LIMIT = 20000
-QUESTIONS_LIMIT = None  # None = 使用全部问题
-LLM_MODEL = "gpt-4o"
+QUESTIONS_LIMIT = 200  # 每个数据集200道题进行小规模测试
+LLM_MODEL = "gpt-5-mini-ca"  # 使用新模型
 EMBEDDING_MODEL = "model/all-mpnet-base-v2"  # Use local model to avoid network issues
 SPACY_MODEL = "en_ner_bc5cdr_md"  # BC5CDR as primary
 MAX_WORKERS = 8

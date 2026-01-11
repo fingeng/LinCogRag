@@ -20,6 +20,14 @@ from src.hypergraph import (
     MultiLevelCache,
 )
 
+# Dataset-adaptive retrieval strategies
+from src.retrieval_strategies import (
+    EvidenceDecisivenessScorer,
+    DatasetAdaptiveRetriever,
+    MMULKnowledgeAugmenter,
+    HypergraphConditionChecker,
+)
+
 logger = logging.getLogger(__name__)
 class LinearRAG:
     def __init__(self, global_config):
@@ -78,6 +86,15 @@ class LinearRAG:
             # Hyperedge embeddings (initialized in index)
             self.hyperedge_embeddings = None
             self.hyperedge_hash_ids = []
+        
+        # 🔧 Initialize dataset-adaptive retrieval components
+        self.decisiveness_scorer = EvidenceDecisivenessScorer()
+        self.adaptive_retriever = DatasetAdaptiveRetriever(
+            self.config.embedding_model, 
+            self.decisiveness_scorer
+        )
+        self.mmlu_augmenter = MMULKnowledgeAugmenter()
+        self.condition_checker = HypergraphConditionChecker()
 
     def load_embedding_store(self):
         self.passage_embedding_store = EmbeddingStore(self.config.embedding_model, db_filename=os.path.join(self.config.working_dir,self.dataset_name, "passage_embedding.parquet"), batch_size=self.config.batch_size, namespace="passage")
@@ -110,52 +127,63 @@ class LinearRAG:
         message_to_result_idx = []
         
         for dataset_name, group_items in dataset_groups.items():
-            # 🔧 根据数据集类型选择 system prompt
+            # 🔧 根据数据集类型选择 system prompt - 更严格的格式要求
             if dataset_name in ["pubmedqa"]:
-                system_prompt = """You are a medical expert. Answer the question based on the provided context.
+                system_prompt = """You are a medical expert analyzing research questions.
 
-IMPORTANT: You MUST respond with EXACTLY one of these three words: Yes, No, or Maybe
-Do NOT add any punctuation, explanation, or other text.
+Based on the provided context, determine if there is sufficient evidence to answer the question.
 
-Example responses:
-- Yes
-- No  
-- Maybe"""
-                answer_format = "Answer with ONLY: Yes, No, or Maybe"
+CRITICAL FORMAT REQUIREMENT:
+- Your response MUST be EXACTLY one word
+- Choose from: Yes, No, Maybe
+- Yes = evidence clearly supports the statement
+- No = evidence clearly contradicts the statement
+- Maybe = evidence is inconclusive or insufficient
+
+RESPOND WITH ONLY ONE WORD. NO EXPLANATION. NO PUNCTUATION.
+
+Example valid responses:
+Yes
+No
+Maybe"""
+                answer_format = "Respond with exactly one word: Yes, No, or Maybe"
                 
             elif dataset_name in ["bioasq"]:
-                system_prompt = """You are a medical expert. Answer the yes/no question based on the provided context.
+                system_prompt = """You are a medical expert answering biomedical yes/no questions.
 
-IMPORTANT: You MUST respond with EXACTLY one of these two words: Yes or No
-Do NOT add any punctuation, explanation, or other text.
+Based on the provided context, determine the answer.
 
-Example responses:
-- Yes
-- No"""
-                answer_format = "Answer with ONLY: Yes or No"
+CRITICAL FORMAT REQUIREMENT:
+- Your response MUST be EXACTLY one word
+- Choose from: Yes or No
+- Yes = the statement is true based on evidence
+- No = the statement is false based on evidence
+
+RESPOND WITH ONLY ONE WORD. NO EXPLANATION. NO PUNCTUATION.
+
+Example valid responses:
+Yes
+No"""
+                answer_format = "Respond with exactly one word: Yes or No"
                 
             else:  # mmlu, medqa, medmcqa
-                system_prompt = """You are a medical expert. Answer the multiple-choice question based on the provided context.
+                system_prompt = """You are a medical expert answering multiple-choice questions.
 
-CRITICAL INSTRUCTIONS:
-1. You MUST respond with ONLY ONE LETTER: A, B, C, or D
-2. Do NOT write "Answer: A" - just write "A"
-3. Do NOT add any explanation, reasoning, or other text
-4. Do NOT write "Thought:" or anything else
+Based on the provided context and your medical knowledge, select the best answer.
 
-CORRECT examples:
-- A
-- B
-- C
-- D
+CRITICAL FORMAT REQUIREMENT:
+- Your response MUST be EXACTLY one letter
+- Choose from: A, B, C, or D
+- NO explanations, NO punctuation, NO additional text
 
-INCORRECT examples (DO NOT DO THIS):
-- Answer: A
-- Thought: ... Answer: A
-- The answer is A
-- A.
-- Option A"""
-                answer_format = "YOUR RESPONSE MUST BE EXACTLY ONE LETTER: A, B, C, or D (nothing else)"
+RESPOND WITH ONLY ONE LETTER.
+
+Example valid responses:
+A
+B
+C
+D"""
+                answer_format = "Respond with exactly one letter: A, B, C, or D"
             
             # 为该数据集的每个问题构建 messages
             for idx, retrieval_result in group_items:
@@ -187,60 +215,140 @@ INCORRECT examples (DO NOT DO THIS):
                 desc="QA Reading (Parallel)"
             ))
 
-        # 🔧 根据数据集类型解析答案
+        # 🔧 根据数据集类型解析答案 - 增强版多级fallback
         for qa_result, result_idx in zip(all_qa_results, message_to_result_idx):
             retrieval_result = retrieval_results[result_idx]
             dataset_name = retrieval_result.get("dataset", "unknown")
             
             try:
                 if dataset_name in ["pubmedqa"]:
-                    # PubMedQA: 提取 Yes/No/Maybe
-                    pred_ans = qa_result.strip()
-                    match = re.search(r'\b(yes|no|maybe)\b', pred_ans, re.IGNORECASE)
-                    if match:
-                        pred_ans = match.group(1).capitalize()
-                    else:
-                        pred_ans = "INVALID"
+                    # PubMedQA: 提取 Yes/No/Maybe - 多级fallback
+                    pred_ans = self._parse_yesno_maybe(qa_result)
                         
                 elif dataset_name in ["bioasq"]:
-                    # BioASQ: 提取 Yes/No
-                    pred_ans = qa_result.strip()
-                    match = re.search(r'\b(yes|no)\b', pred_ans, re.IGNORECASE)
-                    if match:
-                        pred_ans = match.group(1).capitalize()
-                    else:
-                        pred_ans = "INVALID"
+                    # BioASQ: 提取 Yes/No - 多级fallback
+                    pred_ans = self._parse_yesno(qa_result)
                         
                 else:  # mmlu, medqa, medmcqa
-                    # 🔧 四选一：只提取第一个出现的 A/B/C/D
-                    pred_ans = qa_result.strip().upper()
-                    
-                    # 直接检查是否是单个字母
-                    if pred_ans in ['A', 'B', 'C', 'D']:
-                        pass  # 已经是正确格式
-                    else:
-                        # ✅ 使用边界匹配，避免匹配到 "answer" 中的 'A'
-                        match = re.search(r'\b([ABCD])\b', pred_ans)
-                        if match:
-                            pred_ans = match.group(1)
-                        else:
-                            # 如果没有边界匹配，尝试任意字母匹配
-                            match = re.search(r'[ABCD]', pred_ans)
-                            if match:
-                                pred_ans = match.group(0)
-                            else:
-                                # 如果完全没有找到，记录原始回答
-                                print(f"⚠️  {dataset_name}: Invalid answer format: {qa_result[:100]}")
-                                pred_ans = "INVALID"
+                    # 🔧 四选一：多级fallback
+                    pred_ans = self._parse_mcq(qa_result, dataset_name)
                     
             except Exception as e:
                 print(f"⚠️  Error parsing answer for {dataset_name}: {e}")
                 pred_ans = "INVALID"
             
             retrieval_result["pred_answer"] = pred_ans
-            # 🔧 REMOVED: raw_answer field (no longer needed)
+            # 🔧 保存原始LLM响应用于调试
+            retrieval_result["raw_llm_response"] = qa_result[:200]
     
         return retrieval_results
+    
+    def _parse_yesno_maybe(self, response: str) -> str:
+        """解析Yes/No/Maybe答案 - 多级fallback"""
+        text = response.strip().lower()
+        
+        # Level 1: 直接匹配完整单词
+        if text in ['yes', 'no', 'maybe']:
+            return text.capitalize()
+        
+        # Level 2: 正则匹配（词边界）
+        match = re.search(r'\b(yes|no|maybe)\b', text, re.IGNORECASE)
+        if match:
+            return match.group(1).capitalize()
+        
+        # Level 3: 首字母/首词匹配
+        first_word = text.split()[0] if text.split() else ''
+        first_word = re.sub(r'[^\w]', '', first_word)  # 移除标点
+        if first_word in ['yes', 'no', 'maybe']:
+            return first_word.capitalize()
+        
+        # Level 4: 语义推断
+        positive_signals = ['yes', 'true', 'correct', 'support', 'confirm', 'evidence shows', 'clearly']
+        negative_signals = ['no', 'false', 'incorrect', 'contradict', 'not support', 'no evidence']
+        uncertain_signals = ['maybe', 'uncertain', 'inconclusive', 'insufficient', 'unclear', 'possibly', 'might']
+        
+        pos_count = sum(1 for s in positive_signals if s in text)
+        neg_count = sum(1 for s in negative_signals if s in text)
+        unc_count = sum(1 for s in uncertain_signals if s in text)
+        
+        if unc_count > 0:
+            return 'Maybe'
+        if pos_count > neg_count:
+            return 'Yes'
+        if neg_count > pos_count:
+            return 'No'
+        
+        # Level 5: 检查是否LLM返回了错误
+        if 'error' in text or 'cannot' in text or 'unable' in text:
+            return 'Maybe'  # 无法判断时默认Maybe
+        
+        logger.warning(f"PubMedQA parse failed: {response[:100]}")
+        return 'INVALID'
+    
+    def _parse_yesno(self, response: str) -> str:
+        """解析Yes/No答案 - 多级fallback"""
+        text = response.strip().lower()
+        
+        # Level 1: 直接匹配
+        if text in ['yes', 'no']:
+            return text.capitalize()
+        
+        # Level 2: 正则匹配
+        match = re.search(r'\b(yes|no)\b', text, re.IGNORECASE)
+        if match:
+            return match.group(1).capitalize()
+        
+        # Level 3: 首词匹配
+        first_word = text.split()[0] if text.split() else ''
+        first_word = re.sub(r'[^\w]', '', first_word)
+        if first_word in ['yes', 'no']:
+            return first_word.capitalize()
+        
+        # Level 4: 语义推断
+        positive_signals = ['yes', 'true', 'correct', 'support', 'confirm', 'positive', 'affirmative']
+        negative_signals = ['no', 'false', 'incorrect', 'contradict', 'negative', 'deny']
+        
+        pos_count = sum(1 for s in positive_signals if s in text)
+        neg_count = sum(1 for s in negative_signals if s in text)
+        
+        if pos_count > neg_count:
+            return 'Yes'
+        if neg_count > pos_count:
+            return 'No'
+        
+        logger.warning(f"BioASQ parse failed: {response[:100]}")
+        return 'INVALID'
+    
+    def _parse_mcq(self, response: str, dataset_name: str) -> str:
+        """解析选择题答案 - 多级fallback"""
+        text = response.strip().upper()
+        
+        # Level 1: 直接匹配单字母
+        if text in ['A', 'B', 'C', 'D']:
+            return text
+        
+        # Level 2: 词边界匹配
+        match = re.search(r'\b([ABCD])\b', text)
+        if match:
+            return match.group(1)
+        
+        # Level 3: 匹配 "A." 或 "(A)" 格式
+        match = re.search(r'[\(\[]?([ABCD])[\)\].]', text)
+        if match:
+            return match.group(1)
+        
+        # Level 4: 匹配 "Answer: A" 或 "Option A" 格式
+        match = re.search(r'(?:answer|option|choice)[:\s]*([ABCD])', text, re.IGNORECASE)
+        if match:
+            return match.group(1)
+        
+        # Level 5: 找第一个出现的A/B/C/D
+        match = re.search(r'[ABCD]', text)
+        if match:
+            return match.group(0)
+        
+        logger.warning(f"{dataset_name} MCQ parse failed: {response[:100]}")
+        return 'INVALID'
         
         
         
@@ -248,6 +356,7 @@ INCORRECT examples (DO NOT DO THIS):
         retrieval_results = []
         for question_info in tqdm(questions, desc="Retrieving"):
             question = question_info["question"]
+            dataset = question_info.get("dataset", "unknown").lower()
             
             question_embedding = self.config.embedding_model.encode(
                 question,
@@ -261,6 +370,9 @@ INCORRECT examples (DO NOT DO THIS):
             has_entities = len(seed_entities) > 0
             hyperedge_context = ""
             
+            # 🔧 Get more candidates for dataset-adaptive reranking
+            extended_top_k = self.config.retrieval_top_k * 4  # Get 4x candidates for reranking
+            
             # HyperLinearRAG: Use hybrid retrieval if hypergraph is enabled
             if self.use_hypergraph and self.hyperedge_embeddings is not None:
                 seed_entity_data = (seed_entity_indices, seed_entities, seed_entity_hash_ids, seed_entity_scores)
@@ -268,23 +380,32 @@ INCORRECT examples (DO NOT DO THIS):
                     question, question_embedding, seed_entity_data
                 )
                 
-                final_passage_hash_ids = sorted_passage_hash_ids[:self.config.retrieval_top_k]
-                final_passage_scores = sorted_passage_scores[:self.config.retrieval_top_k]
-                final_passages = [self.passage_embedding_store.hash_id_to_text[pid] for pid in final_passage_hash_ids]
+                candidate_hash_ids = sorted_passage_hash_ids[:extended_top_k]
+                candidate_scores = sorted_passage_scores[:extended_top_k]
+                candidate_passages = [self.passage_embedding_store.hash_id_to_text[pid] for pid in candidate_hash_ids]
                 
             elif has_entities:
                 sorted_passage_hash_ids, sorted_passage_scores = self.graph_search_with_seed_entities(
                     question_embedding, seed_entity_indices, seed_entities, seed_entity_hash_ids, seed_entity_scores
                 )
                 
-                final_passage_hash_ids = sorted_passage_hash_ids[:self.config.retrieval_top_k]
-                final_passage_scores = sorted_passage_scores[:self.config.retrieval_top_k]
-                final_passages = [self.passage_embedding_store.hash_id_to_text[pid] for pid in final_passage_hash_ids]
+                candidate_hash_ids = sorted_passage_hash_ids[:extended_top_k]
+                candidate_scores = sorted_passage_scores[:extended_top_k]
+                candidate_passages = [self.passage_embedding_store.hash_id_to_text[pid] for pid in candidate_hash_ids]
             else:
                 sorted_passage_indices, sorted_passage_scores = self.dense_passage_retrieval(question_embedding)
-                final_passage_indices = sorted_passage_indices[:self.config.retrieval_top_k]
-                final_passage_scores = sorted_passage_scores[:self.config.retrieval_top_k]
-                final_passages = [self.passage_embedding_store.texts[idx] for idx in final_passage_indices]
+                candidate_indices = sorted_passage_indices[:extended_top_k]
+                candidate_scores = sorted_passage_scores[:extended_top_k]
+                candidate_passages = [self.passage_embedding_store.texts[idx] for idx in candidate_indices]
+            
+            # 🔧 Dataset-adaptive reranking
+            final_passages, final_passage_scores = self._dataset_adaptive_rerank(
+                question=question,
+                dataset=dataset,
+                passages=candidate_passages,
+                scores=candidate_scores,
+                top_k=self.config.retrieval_top_k
+            )
             
             # Prepend hyperedge context if available
             if hyperedge_context and final_passages:
@@ -301,6 +422,63 @@ INCORRECT examples (DO NOT DO THIS):
             }
             retrieval_results.append(result)
         return retrieval_results
+    
+    def _dataset_adaptive_rerank(
+        self,
+        question: str,
+        dataset: str,
+        passages: list,
+        scores: list,
+        top_k: int = 5
+    ) -> tuple:
+        """
+        Apply dataset-specific reranking strategy.
+        """
+        if not passages:
+            return passages, scores
+        
+        dataset_lower = dataset.lower()
+        
+        if dataset_lower == 'pubmedqa':
+            # PubMedQA: Prioritize decisive evidence for Yes/No/Maybe
+            return self.adaptive_retriever.rerank_for_pubmedqa(
+                question, passages, scores, top_k
+            )
+        
+        elif dataset_lower == 'bioasq':
+            # BioASQ: High confidence Yes/No decisions
+            return self.adaptive_retriever.rerank_for_bioasq(
+                question, passages, scores, top_k
+            )
+        
+        elif dataset_lower in ['medqa', 'medmcqa']:
+            # MCQ: Option-aware retrieval
+            options = self.adaptive_retriever.extract_options(question)
+            if options:
+                reranked_passages, reranked_scores, _ = self.adaptive_retriever.rerank_for_mcq(
+                    question, options, passages, scores, top_k
+                )
+                return reranked_passages, reranked_scores
+            # Fallback to standard
+            return passages[:top_k], scores[:top_k]
+        
+        elif dataset_lower == 'mmlu':
+            # MMLU: Check if retrieval is helpful, otherwise skip
+            if self.mmlu_augmenter.should_skip_retrieval(question, passages):
+                # Return empty to let LLM use internal knowledge
+                logger.debug(f"MMLU: Skipping low-quality retrieval for: {question[:50]}...")
+                return [], []
+            # Apply decisiveness filter
+            decisive_passages = self.decisiveness_scorer.filter_decisive_passages(
+                passages, question, min_decisiveness=0.4, top_k=top_k
+            )
+            # Match scores to passages
+            passage_to_score = dict(zip(passages, scores))
+            decisive_scores = [passage_to_score.get(p, 0.5) for p in decisive_passages]
+            return decisive_passages, decisive_scores
+        
+        # Default: return top-k by original score
+        return passages[:top_k], scores[:top_k]
 
     def expand_medical_query(self, question):
         """Expand query with medical synonyms and related terms"""
@@ -480,7 +658,14 @@ INCORRECT examples (DO NOT DO THIS):
         for seed_entity_idx,seed_entity,seed_entity_hash_id,seed_entity_score in zip(seed_entity_indices,seed_entities,seed_entity_hash_ids,seed_entity_scores):
             actived_entities[seed_entity_hash_id] = (seed_entity_idx, seed_entity_score, 1)
             seed_entity_node_idx = self.node_name_to_vertex_idx[seed_entity_hash_id]
-            entity_weights[seed_entity_node_idx] = seed_entity_score    
+            entity_weights[seed_entity_node_idx] = seed_entity_score
+        
+        # 🔥 超图深度融合: 通过超边传播实体权重
+        if self.use_hypergraph and hasattr(self, 'hypergraph_store'):
+            entity_weights = self._hypergraph_entity_propagation(
+                entity_weights, seed_entity_hash_ids, seed_entity_scores
+            )
+        
         used_sentence_hash_ids = set()
         current_entities = actived_entities.copy()
         iteration = 1
@@ -548,6 +733,61 @@ INCORRECT examples (DO NOT DO THIS):
             current_entities = new_entities.copy()
             iteration += 1
         return entity_weights, actived_entities
+    
+    def _hypergraph_entity_propagation(
+        self,
+        entity_weights: np.ndarray,
+        seed_entity_hash_ids: list,
+        seed_entity_scores: list
+    ) -> np.ndarray:
+        """
+        🔥 超图深度融合: 通过超边传播实体权重到共现实体。
+        这使得PPR在计算重启分布时就已经包含了超图的n元关系信息。
+        """
+        propagation_factor = getattr(self.config, 'hypergraph_propagation_factor', 0.4)
+        min_hyperedge_score = getattr(self.config, 'hyperedge_retrieval_threshold', 0.3)
+        
+        for seed_entity_hash_id, seed_score in zip(seed_entity_hash_ids, seed_entity_scores):
+            # 找到包含该种子实体的所有超边
+            try:
+                related_hyperedges = self.hypergraph_store.get_hyperedges_by_entity(seed_entity_hash_id)
+            except:
+                continue
+            
+            for he_id in related_hyperedges:
+                he_score = self.hypergraph_store.get_hyperedge_score(he_id)
+                
+                # 只使用高分超边
+                if he_score < min_hyperedge_score:
+                    continue
+                
+                # 获取超边中的所有共现实体
+                co_entity_ids = self.hypergraph_store.get_entities_by_hyperedge(he_id)
+                
+                for co_entity_id in co_entity_ids:
+                    if co_entity_id == seed_entity_hash_id:
+                        continue
+                    
+                    # 查找该实体在图中的节点索引
+                    if co_entity_id not in self.node_name_to_vertex_idx:
+                        # 尝试通过实体文本查找
+                        co_entity_text = self.hypergraph_store.get_entity_text(co_entity_id)
+                        if co_entity_text:
+                            graph_entity_id = self.entity_embedding_store.text_to_hash_id.get(co_entity_text.lower())
+                            if graph_entity_id and graph_entity_id in self.node_name_to_vertex_idx:
+                                co_entity_id = graph_entity_id
+                            else:
+                                continue
+                        else:
+                            continue
+                    
+                    if co_entity_id in self.node_name_to_vertex_idx:
+                        co_entity_node_idx = self.node_name_to_vertex_idx[co_entity_id]
+                        # 传播权重 = 种子分数 × 超边分数 × 传播因子
+                        propagated_weight = seed_score * he_score * propagation_factor
+                        entity_weights[co_entity_node_idx] += propagated_weight
+        
+        return entity_weights
 
     def calculate_passage_scores(self, question_embedding, actived_entities, candidate_passage_hash_ids=None):
         """计算passage权重，支持候选集过滤"""

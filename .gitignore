@@ -51,9 +51,7 @@ Thumbs.db
 # Project specific
 structure_after_cleanup.txt
 linearrag/
-release/large_files/
-
-# Temporary files
+release/large_files/# Temporary files
 *.tmp
 *.cache
 .config.py.swp

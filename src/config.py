@@ -39,6 +39,12 @@ class LinearRAGConfig:
         hyperedge_node_weight=1.2,  # Weight for hyperedge nodes in PPR
         hyperedge_retrieval_threshold=0.3,  # Threshold for hyperedge retrieval
         hyperedge_entity_boost=1.2,  # Boost for passages with expanded entities
+        # 🔥 Hypergraph deep fusion
+        hypergraph_propagation_factor=0.4,  # Weight for hyperedge entity propagation in PPR
+        # Dataset-adaptive retrieval
+        use_dataset_adaptive_retrieval=True,  # Enable dataset-specific reranking
+        decisiveness_min_threshold=0.4,  # Minimum decisiveness score for evidence
+        mmlu_skip_low_quality=True,  # Skip low-quality retrieval for MMLU
     ):
         # Model parameters
         self.embedding_model = embedding_model
@@ -95,3 +101,9 @@ class LinearRAGConfig:
         self.hyperedge_node_weight = hyperedge_node_weight
         self.hyperedge_retrieval_threshold = hyperedge_retrieval_threshold
         self.hyperedge_entity_boost = hyperedge_entity_boost
+        # 🔥 Hypergraph deep fusion
+        self.hypergraph_propagation_factor = hypergraph_propagation_factor
+        # Dataset-adaptive retrieval
+        self.use_dataset_adaptive_retrieval = use_dataset_adaptive_retrieval
+        self.decisiveness_min_threshold = decisiveness_min_threshold
+        self.mmlu_skip_low_quality = mmlu_skip_low_quality

@@ -1079,4 +1079,3 @@ hyperedge_score = semantic_similarity * confidence_score
 - 超边文本(Top-5)作为**知识提示**进入prompt
 - Passages(Top-5)是**主要上下文**
 - 三者协同，确保LLM看到最相关的信息
-
