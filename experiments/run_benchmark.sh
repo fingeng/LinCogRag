@@ -12,12 +12,20 @@ echo "Working directory: $(pwd)"
 echo ""
 
 # Set OpenAI API configuration
-export OPENAI_BASE_URL="https://api.chatanywhere.tech"
-export OPENAI_API_KEY="sk-RXbQMpzfo7ERxebnz9PTFQruIbAuBQ6odYPnrzaclBmG2vDc"
+# 请设置环境变量 OPENAI_API_KEY 和 OPENAI_BASE_URL (可选)
+# 例如: export OPENAI_API_KEY="your-api-key"
+if [ -z "$OPENAI_API_KEY" ]; then
+    echo "❌ Error: OPENAI_API_KEY environment variable is not set"
+    echo "Please run: export OPENAI_API_KEY=\"your-api-key\""
+    exit 1
+fi
+
+# 如果未设置 BASE_URL，使用默认值
+export OPENAI_BASE_URL="${OPENAI_BASE_URL:-https://api.openai.com/v1}"
 
 echo "API Configuration:"
 echo "  OPENAI_BASE_URL: $OPENAI_BASE_URL"
-echo "  OPENAI_API_KEY: ${OPENAI_API_KEY:0:20}..."
+echo "  OPENAI_API_KEY: ${OPENAI_API_KEY:0:10}***"
 echo ""
 
 # Check if CUDA is available

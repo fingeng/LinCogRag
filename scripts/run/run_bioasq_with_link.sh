@@ -3,10 +3,15 @@
 # BioASQ快速测试 - 使用已有的50k图
 #
 
-# 激活环境和设置API
+# 激活环境
 conda activate medgraphrag
-export OPENAI_BASE_URL="https://api.chatanywhere.tech"
-export OPENAI_API_KEY="sk-RXbQMpzfo7ERxebnz9PTFQruIbAuBQ6odYPnrzaclBmG2vDc"
+
+# API配置：请先设置环境变量
+if [ -z "$OPENAI_API_KEY" ]; then
+    echo "❌ Error: OPENAI_API_KEY not set. Run: export OPENAI_API_KEY=\"your-key\""
+    exit 1
+fi
+export OPENAI_BASE_URL="${OPENAI_BASE_URL:-https://api.openai.com/v1}"
 
 cd /home/maoxy23/projects/LinearRAG
 
