@@ -46,9 +46,7 @@ logs/
 
 # OS
 .DS_Store
-Thumbs.db
-
-# Project specific
+Thumbs.db# Project specific
 structure_after_cleanup.txt
 linearrag/
 release/large_files/# Temporary files

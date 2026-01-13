@@ -47,15 +47,42 @@ class LLM:
 
         print(f"[LLM] Initialized with model: {self.model_name}" + (f" (base_url={base_url})" if base_url else ""))
 
-    def infer(self, messages: List[Dict[str, Any]]) -> str:
-        try:
-            response = self.client.chat.completions.create(
-                model=self.model_name,
-                messages=messages,
-                temperature=self.temperature,
-                max_tokens=self.max_tokens,
-            )
-            return (response.choices[0].message.content or "").strip()
-        except Exception as e:
-            print(f"⚠️  LLM error: {e}")
-            return "Error: Could not get LLM response"
+    def infer(self, messages: List[Dict[str, Any]], max_retries: int = 3) -> str:
+        """LLM推理，自动重试空响应"""
+        last_error = None
+        
+        for attempt in range(max_retries):
+            try:
+                response = self.client.chat.completions.create(
+                    model=self.model_name,
+                    messages=messages,
+                    temperature=self.temperature,
+                    max_tokens=self.max_tokens,
+                )
+                content = (response.choices[0].message.content or "").strip()
+                
+                # 🔥 检测空响应并重试
+                if not content:
+                    if attempt < max_retries - 1:
+                        print(f"⚠️  LLM returned empty response, retrying ({attempt+1}/{max_retries})...")
+                        # 稍微提高temperature重试
+                        self.temperature = min(0.3, self.temperature + 0.1)
+                        continue
+                    else:
+                        print(f"⚠️  LLM returned empty after {max_retries} retries")
+                        return ""
+                
+                # 重置temperature
+                self.temperature = 0.0
+                return content
+                
+            except Exception as e:
+                last_error = e
+                if attempt < max_retries - 1:
+                    print(f"⚠️  LLM error (attempt {attempt+1}/{max_retries}): {e}")
+                    import time
+                    time.sleep(1)  # 短暂等待后重试
+                    continue
+                    
+        print(f"⚠️  LLM failed after {max_retries} attempts: {last_error}")
+        return "Error: Could not get LLM response"
