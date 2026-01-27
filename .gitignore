@@ -52,9 +52,7 @@ linearrag/
 release/large_files/# Temporary files
 *.tmp
 *.cache
-.config.py.swp
-
-# Environment files (API keys)
+.config.py.swp# Environment files (API keys)
 .env
 .env.local
 .env.*.local

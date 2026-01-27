@@ -1,0 +1,64 @@
+{
+  "total_questions": 7663,
+  "overall_llm_accuracy": 84.44473443820958,
+  "overall_contain_accuracy": 10.81821740832572,
+  "total_correct": 6471,
+  "total_contain_correct": 829,
+  "total_invalid": 0,
+  "valid_answer_rate": 100.0,
+  "questions_wo_entities": 48,
+  "dataset_stats": {
+    "medqa": {
+      "total": 1273,
+      "correct": 1189,
+      "invalid": 0,
+      "contain_correct": 72,
+      "no_entity": 0
+    },
+    "medmcqa": {
+      "total": 4183,
+      "correct": 3326,
+      "invalid": 0,
+      "contain_correct": 297,
+      "no_entity": 13
+    },
+    "mmlu": {
+      "total": 1089,
+      "correct": 1034,
+      "invalid": 0,
+      "contain_correct": 0,
+      "no_entity": 12
+    },
+    "pubmedqa": {
+      "total": 500,
+      "correct": 363,
+      "invalid": 0,
+      "contain_correct": 230,
+      "no_entity": 10
+    },
+    "bioasq": {
+      "total": 618,
+      "correct": 559,
+      "invalid": 0,
+      "contain_correct": 230,
+      "no_entity": 13
+    }
+  },
+  "invalid_samples": [],
+  "index_time_seconds": 112.84745836257935,
+  "qa_time_seconds": 55233.69070696831,
+  "total_time_seconds": 55346.53816533089,
+  "config": {
+    "chunks_limit": 20000,
+    "llm_model": "gpt-5-mini-ca",
+    "embedding_model": "model/all-mpnet-base-v2",
+    "datasets": [
+      "medqa",
+      "medmcqa",
+      "mmlu",
+      "pubmedqa",
+      "bioasq"
+    ],
+    "use_hypergraph": true
+  }
+}

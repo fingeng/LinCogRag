@@ -27,11 +27,11 @@ sys.path.insert(0, PROJECT_ROOT)
 
 # ===================== Configuration =====================
 CHUNKS_LIMIT = 20000
-QUESTIONS_LIMIT = 200  # 每个数据集200道题进行小规模测试
-LLM_MODEL = "gpt-5-mini-ca"  # 使用新模型
+QUESTIONS_LIMIT = None  # None = 测试全部问题（原200题为小规模测试）
+LLM_MODEL = "gpt-5-mini-ca"  # 用户指定模型
 EMBEDDING_MODEL = "model/all-mpnet-base-v2"  # Use local model to avoid network issues
 SPACY_MODEL = "en_ner_bc5cdr_md"  # BC5CDR as primary
-MAX_WORKERS = 8
+MAX_WORKERS = 2  # 🔧 降低并发避免代理限流
 
 # Datasets to evaluate
 MIRAGE_DATASETS = ["medqa", "medmcqa", "mmlu", "pubmedqa", "bioasq"]

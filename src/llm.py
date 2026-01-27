@@ -48,8 +48,10 @@ class LLM:
         print(f"[LLM] Initialized with model: {self.model_name}" + (f" (base_url={base_url})" if base_url else ""))
 
     def infer(self, messages: List[Dict[str, Any]], max_retries: int = 3) -> str:
-        """LLM推理，自动重试空响应"""
+        """LLM推理，自动重试空响应（带指数退避）"""
+        import time
         last_error = None
+        base_delay = 2.0  # 基础延迟秒数
         
         for attempt in range(max_retries):
             try:
@@ -61,15 +63,16 @@ class LLM:
                 )
                 content = (response.choices[0].message.content or "").strip()
                 
-                # 🔥 检测空响应并重试
+                # 🔥 检测空响应并重试（指数退避）
                 if not content:
                     if attempt < max_retries - 1:
-                        print(f"⚠️  LLM returned empty response, retrying ({attempt+1}/{max_retries})...")
-                        # 稍微提高temperature重试
+                        delay = base_delay * (2 ** attempt)  # 2s, 4s, 8s...
+                        print(f"⚠️  LLM empty response, retry {attempt+1}/{max_retries} in {delay}s...")
+                        time.sleep(delay)
                         self.temperature = min(0.3, self.temperature + 0.1)
                         continue
                     else:
-                        print(f"⚠️  LLM returned empty after {max_retries} retries")
+                        print(f"⚠️  LLM empty after {max_retries} retries")
                         return ""
                 
                 # 重置temperature
@@ -79,9 +82,9 @@ class LLM:
             except Exception as e:
                 last_error = e
                 if attempt < max_retries - 1:
-                    print(f"⚠️  LLM error (attempt {attempt+1}/{max_retries}): {e}")
-                    import time
-                    time.sleep(1)  # 短暂等待后重试
+                    delay = base_delay * (2 ** attempt)
+                    print(f"⚠️  LLM error ({attempt+1}/{max_retries}): {e}, retry in {delay}s...")
+                    time.sleep(delay)
                     continue
                     
         print(f"⚠️  LLM failed after {max_retries} attempts: {last_error}")
