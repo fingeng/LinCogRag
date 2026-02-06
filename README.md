@@ -353,13 +353,3 @@ If this project is helpful to your research, please cite:
 }
 ```
 
-This project builds upon [LinearRAG](https://arxiv.org/abs/2510.10114). If you also use the base LinearRAG method, please cite:
-
-```bibtex
-@article{zhuang2025linearrag,
-  title={LinearRAG: Linear Graph Retrieval Augmented Generation on Large-scale Corpora},
-  author={Zhuang, Luyao and Chen, Shengyuan and Xiao, Yilin and Zhou, Huachi and Zhang, Yujing and Chen, Hao and Zhang, Qinggang and Huang, Xiao},
-  journal={arXiv preprint arXiv:2510.10114},
-  year={2025}
-}
-```
