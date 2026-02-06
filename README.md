@@ -1,6 +1,6 @@
 # LinCogRAG: Linear + Hypergraph Retrieval-Augmented Generation
 
-> 基于LinearRAG的增强版本，集成超图(Hypergraph)机制用于医学文献问答。通过捕捉多实体共现关系(n元关系)，在医学领域QA任务上实现显著性能提升。
+> An enhanced version based on LinearRAG, integrating Hypergraph mechanism for medical literature Q&A. By capturing multi-entity co-occurrence relationships (n-ary relations), it achieves significant performance improvements on medical domain QA tasks.
 
 <p align="center">
   <a href="https://github.com/fingeng/LinCogRag" target="_blank">
@@ -13,121 +13,121 @@
 
 ---
 
-## 🚀 核心特性
+## 🚀 Core Features
 
-### LinearRAG基础能力
-- ✅ **零LLM消耗**: 图构建无需LLM，基于轻量级NER和语义链接
-- ✅ **多跳推理**: 通过图遍历(PPR)实现单次检索的深度推理
-- ✅ **高扩展性**: 线性时间/空间复杂度，支持大规模语料
+### LinearRAG Base Capabilities
+- ✅ **Zero LLM Consumption**: Graph construction without LLM, based on lightweight NER and semantic linking
+- ✅ **Multi-hop Reasoning**: Deep reasoning through graph traversal (PPR) in a single retrieval
+- ✅ **High Scalability**: Linear time/space complexity, supporting large-scale corpora
 
-### LinCogRAG创新增强 🔥
-- 🎯 **超图机制**: 捕捉句子级多实体共现关系(n元关系)
-- 🎯 **医学模式识别**: 自动识别疾病-药物、症状-诊断等医学关系模式
-- 🎯 **混合检索**: 图遍历(PPR) + 超图增强 + 密集检索(DPR)三重融合
-- 🎯 **双向实体扩展**: 从超边扩展实体，从实体查找超边
-- 🎯 **智能重排序**: 基于扩展实体匹配的Passage重排序
+### LinCogRAG Innovative Enhancements 🔥
+- 🎯 **Hypergraph Mechanism**: Captures sentence-level multi-entity co-occurrence relationships (n-ary relations)
+- 🎯 **Medical Pattern Recognition**: Automatic identification of disease-drug, symptom-diagnosis, and other medical relationship patterns
+- 🎯 **Hybrid Retrieval**: Triple fusion of graph traversal (PPR) + hypergraph enhancement + dense retrieval (DPR)
+- 🎯 **Bidirectional Entity Expansion**: Expand entities from hyperedges, find hyperedges from entities
+- 🎯 **Intelligent Re-ranking**: Passage re-ranking based on expanded entity matching
 
 ---
 
-## 📊 系统架构
+## 📊 System Architecture
 
 ```
-输入问题 "What is the first-line treatment for type 2 diabetes?"
+Input Question "What is the first-line treatment for type 2 diabetes?"
     ↓
-[NER] 提取种子实体
+[NER] Extract seed entities
     ↓ ["treatment", "type 2 diabetes"]
     ↓
-[超图检索] 语义匹配 + 医学模式增强
-    ↓ Top-30超边 → 扩展实体(~150个)
-    ↓ 例: 发现 "metformin", "insulin", "glucose" ...
+[Hypergraph Retrieval] Semantic matching + medical pattern enhancement
+    ↓ Top-30 hyperedges → Expanded entities (~150)
+    ↓ e.g.: Discover "metformin", "insulin", "glucose" ...
     ↓
-[图遍历PPR] 基于实体的PageRank传播
-    ↓ 排序所有passages
+[Graph Traversal PPR] Entity-based PageRank propagation
+    ↓ Rank all passages
     ↓
-[超图增强] 用扩展实体重排序passages
-    ↓ 包含更多扩展实体的passage分数↑
+[Hypergraph Enhancement] Re-rank passages with expanded entities
+    ↓ Passages with more expanded entities get higher scores↑
     ↓
-[Top-K截断] 选择Top-5 passages
+[Top-K Truncation] Select Top-5 passages
     ↓
-[LLM生成] 基于上下文生成答案
+[LLM Generation] Generate answer based on context
     ↓
-答案: "B. Metformin"
+Answer: "B. Metformin"
 ```
 
-### 核心数据结构
+### Core Data Structures
 
-#### 1. 基础图 (LinearRAG)
+#### 1. Base Graph (LinearRAG)
 ```
-图 G = (V, E)
+Graph G = (V, E)
 V = V_passage ∪ V_entity ∪ V_sentence
 E = E_passage-entity ∪ E_entity-sentence ∪ E_passage-passage
 ```
 
-#### 2. 超图 (LinCogRAG创新)
+#### 2. Hypergraph (LinCogRAG Innovation)
 ```
-超图 G_H = (V_H, E_H)
-超边 e_H = {entity1, entity2, ..., entityN}
-  - 来源: 同一句子中共现的N个实体
-  - 描述: 句子原文本
-  - 分数: 基于实体数量 + 医学模式增强
+Hypergraph G_H = (V_H, E_H)
+Hyperedge e_H = {entity1, entity2, ..., entityN}
+  - Source: N entities co-occurring in the same sentence
+  - Description: Original sentence text
+  - Score: Based on entity count + medical pattern enhancement
 ```
 
-**示例超边**:
+**Example Hyperedge**:
 ```
 Hyperedge {
   text: "Metformin is the first-line treatment for type 2 diabetes."
   entities: ["metformin", "type 2 diabetes mellitus"]
-  score: 0.65 × 1.3 = 0.845  // 检测到疾病-药物模式，boost 1.3x
+  score: 0.65 × 1.3 = 0.845  // Disease-drug pattern detected, 1.3x boost
 }
 ```
 
 ---
 
-## 🛠️ 快速开始
+## 🛠️ Quick Start
 
-### 1. 环境配置
+### 1. Environment Setup
 
 ```bash
-# 克隆仓库
+# Clone repository
 git clone https://github.com/fingeng/LinCogRag.git
 cd LinCogRag
 
-# 安装依赖
+# Install dependencies
 pip install -r requirements.txt
 
-# 安装医学NER模型
+# Install medical NER model
 pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.3/en_ner_bc5cdr_md-0.5.3.tar.gz
 
-# 配置OpenAI API
+# Configure OpenAI API
 export OPENAI_API_KEY="your-api-key"
-export OPENAI_BASE_URL="your-base-url"  # 可选
+export OPENAI_BASE_URL="your-base-url"  # Optional
 ```
 
-### 2. 准备数据
+### 2. Prepare Data
 
 ```bash
-# 下载MIRAGE基准数据集
-# 将数据放置到 MIRAGE/rawdata/ 目录
+# Download MIRAGE benchmark dataset
+# Place data in MIRAGE/rawdata/ directory
 
-# 准备PubMed文献（20k chunks）
-# 将文献放置到 dataset/pubmed/chunk/ 目录
+# Prepare PubMed literature (20k chunks)
+# Place literature in dataset/pubmed/chunk/ directory
 
-# 下载Embedding模型
-# 将 all-mpnet-base-v2 放置到 model/ 目录
+# Download Embedding model
+# Place all-mpnet-base-v2 in model/ directory
 ```
 
-### 3. 运行实验
+### 3. Run Experiments
 
-#### 方式1: 标准LinCog实验（推荐）
+#### Method 1: Standard LinCog Experiment (Recommended)
 ```bash
-# 在5个MIRAGE数据集上运行完整评估
-# 配置: 20k文献 + GPT-4o + 全部问题
+# Run full evaluation on 5 MIRAGE datasets
+# Configuration: 20k documents + GPT-4o + all questions
 python experiments/run_lincog_benchmark.py
 ```
 
-#### 方式2: 灵活配置实验
+#### Method 2: Flexible Configuration Experiment
 ```bash
-# 快速测试（少量数据）
+# Quick test (small data)
 python run.py \
     --use_mirage \
     --mirage_dataset medqa \
@@ -135,13 +135,13 @@ python run.py \
     --questions_limit 50 \
     --llm_model gpt-4o-mini
 
-# 单数据集完整评估
+# Single dataset full evaluation
 python run.py \
     --use_mirage \
     --mirage_dataset pubmedqa \
     --llm_model gpt-4o
 
-# 多数据集联合评估
+# Multi-dataset joint evaluation
 python run.py \
     --use_mirage \
     --mirage_dataset medqa medmcqa mmlu \
@@ -151,192 +151,197 @@ python run.py \
 
 ---
 
-## 📈 性能表现
+## 📈 Performance
 
-### MIRAGE基准测试结果 (最新)
+### MIRAGE Benchmark Results (Latest)
 
-> **实验配置**: 20K PubMed文献 | GPT-5-Mini-CA | 全数据集测试  
-> **实验时间**: 2026-01-25 17:30 - 01-26 08:53 (15.4小时)  
-> **总问题数**: 7,663 | **总体准确率**: **84.44%** ✨
+> **Experiment Configuration**: 20K PubMed documents | GPT-5-Mini-CA | Full dataset testing  
+> **Experiment Duration**: 2026-01-25 17:30 - 01-26 08:53 (15.4 hours)  
+> **Total Questions**: 7,663 | **Overall Accuracy**: **84.44%** ✨
 
-| 数据集 | 问题数 | 准确率 | 正确/总数 | 排名 |
-|--------|--------|--------|-----------|------|
+| Dataset | Questions | Accuracy | Correct/Total | Rank |
+|---------|-----------|----------|---------------|------|
 | **MMLU-Med** | 1,089 | **94.95%** 🥇 | 1034/1089 | 1 |
 | **MedQA** | 1,273 | **93.40%** 🥈 | 1189/1273 | 2 |
 | **BioASQ** | 618 | **90.45%** 🥉 | 559/618 | 3 |
 | **MedMCQA** | 4,183 | **79.51%** | 3326/4183 | 4 |
 | **PubMedQA** | 500 | **72.60%** | 363/500 | 5 |
 
-**实验结果文件**: [`benchmark_results/lincog_5datasets_20260125_best_result.json`](benchmark_results/lincog_5datasets_20260125_best_result.json) | [详细说明](benchmark_results/README.md)
+**Experiment Results File**: [`benchmark_results/lincog_5datasets_20260125_best_result.json`](benchmark_results/lincog_5datasets_20260125_best_result.json) | [Detailed Description](benchmark_results/README.md)
 
-### 核心技术优势
+### Core Technical Advantages
 
-**LinCogRAG vs 传统RAG**:
-- ✅ **超图深度融合**: 在PPR重启分布中融入n元关系，召回率 +12%
-- ✅ **数据集自适应检索**: MCQ选项对比、Yes/No双向证据，准确率 +4.8%
-- ✅ **多级答案解析**: 7级MCQ fallback + 5级Yes/No fallback，有效答案率 **100%**
-- ✅ **候选集预筛选**: DPR快速筛选，计算效率提升 **40倍**
-- ✅ **混合NER策略**: BC5CDR + HuggingFace双模型，实体覆盖率 +25%
+**LinCogRAG vs Traditional RAG**:
+- ✅ **Deep Hypergraph Integration**: Incorporate n-ary relations into PPR restart distribution, recall +12%
+- ✅ **Dataset-adaptive Retrieval**: MCQ option comparison, Yes/No bidirectional evidence, accuracy +4.8%
+- ✅ **Multi-level Answer Parsing**: 7-level MCQ fallback + 5-level Yes/No fallback, valid answer rate **100%**
+- ✅ **Candidate Pool Pre-filtering**: DPR fast filtering, computational efficiency improved **40x**
+- ✅ **Hybrid NER Strategy**: BC5CDR + HuggingFace dual models, entity coverage +25%
 
-**关键创新**:
-- 🔥 超图捕捉多实体关系，识别疾病-药物、症状-诊断等医学模式
-- 🔥 零LLM消耗的图构建（相比传统RAG节省90%+ token）
-- 🔥 端到端pipeline，无需人工特征工程
-- 🔥 模块化设计，支持增量索引和大规模扩展
+**Key Innovations**:
+- 🔥 Hypergraph captures multi-entity relationships, identifying disease-drug, symptom-diagnosis, and other medical patterns
+- 🔥 Zero LLM consumption for graph construction (saving 90%+ tokens compared to traditional RAG)
+- 🔥 End-to-end pipeline, no manual feature engineering required
+- 🔥 Modular design, supporting incremental indexing and large-scale expansion
 
-详细算法说明请参考：[LinCogRAG算法详解](LinCogRAG_算法详解.md)
+For detailed algorithm description, please refer to: [LinCogRAG Algorithm Details](docs/ALGORITHM.md)
 
 ---
 
-## 🔬 技术详解
+## 🔬 Technical Details
 
-### 超图构建流程
+### Hypergraph Construction Process
 
 ```python
-# 1. 从NER结果构建超边
+# 1. Build hyperedges from NER results
 sentence = "Metformin reduces glucose and improves insulin sensitivity."
 entities = ["metformin", "glucose", "insulin"]
 
 hyperedge = Hyperedge(
     text=sentence,
     entities=entities,
-    score=3/max_count  # 基础分数
+    score=3/max_count  # Base score
 )
 
-# 2. 医学模式增强
+# 2. Medical pattern enhancement
 if {CHEMICAL, DISEASE} in entity_types:
-    hyperedge.score *= 1.3  # 药物-疾病关系
+    hyperedge.score *= 1.3  # Drug-disease relationship
 
-# 3. 存储到二部图
+# 3. Store in bipartite graph
 HypergraphStore.add_edge(hyperedge, entities)
 ```
 
-### 检索增强机制
+### Retrieval Enhancement Mechanism
 
 ```python
-# 1. 超图检索
-hyperedges = hypergraph_retrieve(question)  # Top-30超边
-expanded_entities = extract_entities(hyperedges)  # ~150个实体
+# 1. Hypergraph retrieval
+hyperedges = hypergraph_retrieve(question)  # Top-30 hyperedges
+expanded_entities = extract_entities(hyperedges)  # ~150 entities
 
-# 2. 图遍历检索
-passages = graph_search_ppr(seed_entities)  # 基于PPR排序
+# 2. Graph traversal retrieval
+passages = graph_search_ppr(seed_entities)  # PPR-based ranking
 
-# 3. 超图增强重排序
+# 3. Hypergraph-enhanced re-ranking
 for passage in passages:
     matches = count_entity_matches(passage, expanded_entities)
     if matches > 0:
-        passage.score *= (1 + 0.2 * min(matches, 3) / 3)  # 最多boost 1.2x
+        passage.score *= (1 + 0.2 * min(matches, 3) / 3)  # Max 1.2x boost
 
-# 4. 最终Top-K
+# 4. Final Top-K
 final_passages = sorted(passages)[:5]
 ```
 
 ---
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
 LinCogRag/
 ├── src/
-│   ├── LinearRAG.py              # 核心算法（含超图集成）
-│   ├── config.py                 # 配置类
-│   ├── ner.py                    # 混合NER（BC5CDR + HuggingFace）
-│   ├── hypergraph/               # 超图模块
-│   │   ├── cooccurrence_hyperedge.py   # 超边构建 + 医学增强
-│   │   ├── hypergraph_store.py         # 超图存储（二部图）
-│   │   ├── cache_manager.py            # 多级缓存
-│   │   └── incremental_index.py        # 增量索引
-│   ├── embedding_store.py        # Embedding管理
-│   ├── llm.py                    # LLM接口
+│   ├── LinearRAG.py              # Core algorithm (with hypergraph integration)
+│   ├── config.py                 # Configuration classes
+│   ├── ner.py                    # Hybrid NER (BC5CDR + HuggingFace)
+│   ├── hypergraph/               # Hypergraph module
+│   │   ├── cooccurrence_hyperedge.py   # Hyperedge construction + medical enhancement
+│   │   ├── hypergraph_store.py         # Hypergraph storage (bipartite graph)
+│   │   ├── cache_manager.py            # Multi-level cache
+│   │   └── incremental_index.py        # Incremental indexing
+│   ├── embedding_store.py        # Embedding management
+│   ├── llm.py                    # LLM interface
 │   └── ...
 │
 ├── experiments/
-│   └── run_lincog_benchmark.py   # LinCog标准实验
+│   └── run_lincog_benchmark.py   # LinCog standard experiments
+│
+├── scripts/
+│   ├── download_biomedical_ner.py  # Download NER models
+│   └── multi_gpu_encode.py         # Multi-GPU encoding utilities
 │
 ├── docs/
-│   ├── LinearRAG完整流程解析.md    # 详细技术文档
-│   ├── CLEANUP_REPORT.md         # 代码清理报告
-│   └── ...
+│   └── ALGORITHM.md              # Detailed algorithm documentation
 │
-├── run.py                        # CLI入口
-└── requirements.txt              # 依赖列表
+├── benchmark_results/            # Experiment results
+├── figure/                       # Architecture diagrams
+├── run.py                        # CLI entry point
+└── requirements.txt              # Dependencies
 ```
 
 ---
 
-## 🎯 使用场景
+## 🎯 Use Cases
 
-### 适用领域
-- ✅ **医学问答**: MedQA, MedMCQA, BioASQ等
-- ✅ **生物医学文献检索**: PubMed, PMC等
-- ✅ **临床决策支持**: 疾病诊断、治疗方案推荐
-- ✅ **药物研发**: 药物-疾病关系挖掘
+### Applicable Domains
+- ✅ **Medical Q&A**: MedQA, MedMCQA, BioASQ, etc.
+- ✅ **Biomedical Literature Retrieval**: PubMed, PMC, etc.
+- ✅ **Clinical Decision Support**: Disease diagnosis, treatment plan recommendations
+- ✅ **Drug Development**: Drug-disease relationship mining
 
-### 扩展性
-- 可适配其他领域（需替换NER模型和领域模式）
-- 支持增量索引，可持续添加新文献
-- 支持多GPU并行加速
-
----
-
-## 📖 详细文档
-
-- [完整技术流程解析](LinearRAG完整流程解析.md) - 详细的算法原理和代码实现
-- [代码清理报告](CLEANUP_REPORT.md) - 项目重构和优化记录
-- [Git配置指南](GIT_SETUP_COMPLETE.md) - 仓库管理和分支策略
+### Scalability
+- Adaptable to other domains (requires replacing NER model and domain patterns)
+- Supports incremental indexing for continuous document addition
+- Supports multi-GPU parallel acceleration
 
 ---
 
-## 🔧 常见问题
+## 📖 Documentation
 
-### Q1: 为什么需要超图？
-**A**: 传统图只能表示二元关系（实体对），超图可以表示n元关系（多个实体的共现），更适合捕捉医学领域的复杂关系。例如"症状A + 症状B + 疾病C"的三元关系。
+- [Algorithm Details](docs/ALGORITHM.md) - Comprehensive algorithm documentation including hypergraph construction, PPR traversal, and dataset-adaptive retrieval
+- [Benchmark Results](benchmark_results/README.md) - Detailed experiment results and analysis
 
-### Q2: 医学模式识别如何工作？
-**A**: 系统预定义了医学关系模式（如疾病-药物、症状-诊断），在构建超边时自动检测这些模式并提升相关超边的分数，优先召回临床相关知识。
+---
 
-### Q3: 如何处理大规模数据？
+## 🔧 FAQ
+
+### Q1: Why do we need hypergraphs?
+**A**: Traditional graphs can only represent binary relationships (entity pairs), while hypergraphs can represent n-ary relationships (co-occurrence of multiple entities), making them more suitable for capturing complex relationships in the medical domain. For example, the ternary relationship "Symptom A + Symptom B + Disease C".
+
+### Q2: How does medical pattern recognition work?
+**A**: The system predefines medical relationship patterns (such as disease-drug, symptom-diagnosis). During hyperedge construction, these patterns are automatically detected and the scores of related hyperedges are boosted, prioritizing the recall of clinically relevant knowledge.
+
+### Q3: How to handle large-scale data?
 **A**: 
-- 增量索引：只处理新增文献
-- 多级缓存：缓存NER结果、Embedding等
-- 候选池预筛选：先用DPR筛选Top-500，再图遍历
-- 分布式：支持多GPU并行
+- Incremental indexing: Only process new documents
+- Multi-level caching: Cache NER results, embeddings, etc.
+- Candidate pool pre-filtering: First use DPR to filter Top-500, then graph traversal
+- Distributed: Support multi-GPU parallelism
 
-### Q4: 可以用于其他语言吗？
-**A**: 理论上可以，需要：
-1. 替换NER模型（支持目标语言）
-2. 调整医学模式匹配规则
-3. 使用多语言Embedding模型
+### Q4: Can it be used for other languages?
+**A**: Theoretically yes, requiring:
+1. Replace NER model (supporting target language)
+2. Adjust medical pattern matching rules
+3. Use multilingual embedding model
 
 ---
 
-## 🙏 致谢
+## 🙏 Acknowledgements
 
-本项目基于以下优秀工作：
+This project is based on the following excellent works:
 
 - **LinearRAG**: [GitHub](https://github.com/DEEP-PolyU/LinearRAG) | [Paper](https://arxiv.org/abs/2510.10114)
-- **MIRAGE Benchmark**: 医学领域RAG评估基准
-- **BC5CDR NER**: 生物医学命名实体识别
-- **SentenceTransformers**: 语义Embedding
+- **MIRAGE Benchmark**: Medical domain RAG evaluation benchmark
+- **BC5CDR NER**: Biomedical named entity recognition
+- **SentenceTransformers**: Semantic embedding
 
 ---
 
-## 📬 联系方式
+## 📬 Contact
 
-- **GitHub Issues**: [提交问题](https://github.com/fingeng/LinCogRag/issues)
-- **原LinearRAG作者**: zhuangluyao523@gmail.com
-
----
-
-## 📄 许可证
-
-本项目遵循与LinearRAG相同的许可证。
+- **Authors**: Xingyi Mao, Liang Yao
+- **Affiliation**: Sun Yat-sen University
+- **Email**: maoxy23@mail2.sysu.edu.cn, yaoliang3@mail.sysu.edu.cn
+- **GitHub Issues**: [Submit Issues](https://github.com/fingeng/LinCogRag/issues)
 
 ---
 
-## 🎓 引用
+## 📄 License
 
-如果本项目对您的研究有帮助，请引用原始LinearRAG论文：
+This project follows the same license as LinearRAG.
+
+---
+
+## 🎓 Citation
+
+If this project is helpful to your research, please cite the original LinearRAG paper:
 
 ```bibtex
 @article{zhuang2025linearrag,
