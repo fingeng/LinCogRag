@@ -318,7 +318,7 @@ LinCogRag/
 This project is based on the following excellent works:
 
 - **LinearRAG**: [GitHub](https://github.com/DEEP-PolyU/LinearRAG) | [Paper](https://arxiv.org/abs/2510.10114)
-- **MIRAGE Benchmark**: Medical domain RAG evaluation benchmark
+- **MIRAGE Benchmark**: [Paper](https://aclanthology.org/2024.findings-acl.372) | [GitHub](https://github.com/Teddy-XiongGZ/MIRAGE) - Medical RAG evaluation benchmark (Xiong et al., ACL 2024)
 - **BC5CDR NER**: Biomedical named entity recognition
 - **SentenceTransformers**: Semantic embedding
 

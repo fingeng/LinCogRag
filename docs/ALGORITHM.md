@@ -756,7 +756,7 @@ LinCogRAG achieves **84.44% overall accuracy** on 5 medical QA datasets through 
 
 1. LinearRAG: https://arxiv.org/abs/2510.10114
 2. BC5CDR: Biomedical NER for Chemical and Disease
-3. MIRAGE Benchmark: Medical Information Retrieval and Question Answering
+3. Xiong, G., Jin, Q., Lu, Z., & Zhang, A. (2024). Benchmarking Retrieval-Augmented Generation for Medicine. In Findings of ACL 2024. https://aclanthology.org/2024.findings-acl.372
 4. PersonalizedPageRank: Topic-sensitive PageRank
 
 ---
