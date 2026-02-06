@@ -346,7 +346,7 @@ If this project is helpful to your research, please cite:
 ```bibtex
 @misc{lincograg2026,
   title={LinCogRAG: Hypergraph-Enhanced Retrieval-Augmented Generation for Medical Question Answering},
-  author={Mao, Xingyi and Yao, Liang},
+  author={Xingyi Mao and Liang Yao},
   year={2026},
   howpublished={\url{https://github.com/fingeng/LinCogRag}},
   note={Based on LinearRAG framework}

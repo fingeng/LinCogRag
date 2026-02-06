@@ -134,7 +134,7 @@ If using these results, please cite:
 ```bibtex
 @misc{lincograg2026,
   title={LinCogRAG: Linear + Hypergraph Retrieval-Augmented Generation for Medical QA},
-  author={Mao, Xingyi and Yao, Liang},
+  author={Xingyi Mao and Liang Yao},
   year={2026},
   note={MIRAGE Benchmark Results}
 }
