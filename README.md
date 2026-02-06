@@ -341,7 +341,19 @@ This project follows the same license as LinearRAG.
 
 ## 🎓 Citation
 
-If this project is helpful to your research, please cite the original LinearRAG paper:
+If this project is helpful to your research, please cite:
+
+```bibtex
+@misc{lincograg2026,
+  title={LinCogRAG: Hypergraph-Enhanced Retrieval-Augmented Generation for Medical Question Answering},
+  author={Mao, Xingyi and Yao, Liang},
+  year={2026},
+  howpublished={\url{https://github.com/fingeng/LinCogRag}},
+  note={Based on LinearRAG framework}
+}
+```
+
+This project builds upon [LinearRAG](https://arxiv.org/abs/2510.10114). If you also use the base LinearRAG method, please cite:
 
 ```bibtex
 @article{zhuang2025linearrag,
